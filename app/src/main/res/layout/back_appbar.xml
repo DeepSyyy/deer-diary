@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/appBar"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="0dp"
+        android:background="@drawable/background_screen"
+        app:title="Deer Diary"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_arrow_left"
+        app:titleTextColor="@color/lightYellow"/>
+
+</com.google.android.material.appbar.AppBarLayout>

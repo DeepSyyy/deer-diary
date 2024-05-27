@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_screen"
+    tools:context=".ui.addDiaryScreen.AddDiaryActivity">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/back_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_diary"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="334dp"
+        android:layout_height="178dp"
+        android:src="@drawable/ic_place_holder"/>
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginTop="16dp"
+        android:id="@+id/btn_kamera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_diary"
+        app:layout_constraintEnd_toStartOf="@+id/btn_galeri"
+        android:background="@drawable/button_primary_background"
+        android:text="@string/kamera"
+        android:layout_width="151dp"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:layout_height="50dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_galeri"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_diary"
+        android:background="@drawable/button_primary_background"
+        app:layout_constraintStart_toEndOf="@+id/btn_kamera"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:text="@string/galeri"
+        android:layout_width="151dp"
+        android:layout_height="50dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

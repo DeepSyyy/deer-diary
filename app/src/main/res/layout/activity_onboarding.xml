@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_screen"
+    android:paddingTop="54dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="24dp"
+    tools:context=".ui.onboarding.OnboardingActivity">
+
+    <ImageView
+        android:id="@+id/iv_ilustration_onboarding"
+        android:layout_width="320dp"
+        android:src="@drawable/diary_reader"
+        android:layout_height="320dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_caption_onboarding"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_ilustration_onboarding"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="54dp"
+        android:text="@string/caption_onboarding"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        app:layout_constraintBottom_toTopOf="@id/btn_register"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_primary_background"
+        android:layout_width="match_parent"
+        android:elevation="0dp"
+        android:text="@string/masuk"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_secondary_background"
+        android:layout_width="match_parent"
+        android:elevation="0dp"
+        android:text="@string/daftar"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textColor="@color/lightYellow"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
