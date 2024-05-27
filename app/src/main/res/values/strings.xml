@@ -19,4 +19,7 @@
     <string name="galeri">Galeri</string>
     <string name="isi_diary_kosong">Isi diary Kosong</string>
     <string name="terjadi_kesalahan_pada_aplikasi">Terjadi Kesalahan Pada Aplikasi</string>
+    <string name="settings">Settings</string>
+    <string name="upload">Upload</string>
+    <string name="masukkan_cerita_anda">Masukkan Cerita Anda</string>
 </resources>

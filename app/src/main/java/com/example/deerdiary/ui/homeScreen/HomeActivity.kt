@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.deerdiary.ViewModelFactory
 import com.example.deerdiary.adapter.ListStoryAdapter
 import com.example.deerdiary.databinding.ActivityHomeBinding
+import com.example.deerdiary.ui.addStoryScreen.AddStoryActivity
 import com.example.deerdiary.ui.detailScreen.DetailActivity
 import com.example.deerdiary.ui.homeScreen.model.StoryModel
 
@@ -41,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
         setupAdapter()
         setUpObserver()
         callEvent()
+        setUpFabButton()
     }
 
     private fun setupAdapter(){
@@ -111,6 +113,13 @@ class HomeActivity : AppCompatActivity() {
                 tvEmpty.visibility = android.view.View.GONE
                 ivEmpty.visibility = android.view.View.GONE
             }
+        }
+    }
+
+    private fun setUpFabButton(){
+        binding.fabHome.setOnClickListener {
+            val intent = Intent(this, AddStoryActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.deerdiary.data.repository.Repository
 import com.example.deerdiary.di.Injection
+import com.example.deerdiary.ui.addStoryScreen.AddStoryViewModel
 import com.example.deerdiary.ui.detailScreen.DetailViewModel
 import com.example.deerdiary.ui.homeScreen.HomeViewModel
 import com.example.deerdiary.ui.loginScreen.LoginViewModel
@@ -25,6 +26,8 @@ class ViewModelFactory private constructor(
             return HomeViewModel(repository) as T
         }else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
+            return AddStoryViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
@@ -33,11 +36,7 @@ class ViewModelFactory private constructor(
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
 
-        fun getInstance(context: Context): ViewModelFactory {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: ViewModelFactory(Injection.provideRepository(context)).also { INSTANCE = it }
-            }
-        }
+        fun getInstance(context: Context) = ViewModelFactory(Injection.provideRepository(context))
 
         fun clearInstance() {
             INSTANCE = null
