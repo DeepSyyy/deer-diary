@@ -5,8 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginBottom="16dp"
     android:layout_marginEnd="10dp"
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_diary"
+            android:id="@+id/iv_item_photo"
             android:layout_width="155dp"
             android:layout_height="115dp"
             android:scaleType="centerCrop"
@@ -23,15 +24,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_penulis"
+            android:id="@+id/tv_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:text="@string/penulis"
+            android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_diary" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_item_photo" />
 
         <TextView
             android:id="@+id/tv_deskripsi"
@@ -45,10 +47,11 @@
             android:fontFamily="@font/plus_jakarta_sans_regular"
             android:maxLines="4"
             android:text="@string/lorem_lima_paragraf"
+            android:textColor="@color/black"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_penulis" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

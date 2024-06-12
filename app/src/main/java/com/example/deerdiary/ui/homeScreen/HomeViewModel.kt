@@ -12,7 +12,7 @@ import com.example.deerdiary.ui.homeScreen.model.StoryModel
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    var repository: Repository
+    var repository: Repository,
 ) : ViewModel() {
     private val _listStory = MutableLiveData<List<StoryModel>>()
     val listStory: LiveData<List<StoryModel>> = _listStory
@@ -23,16 +23,13 @@ class HomeViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-
-
-    fun processEvent(event: HomeEvent){
-        when(event){
+    fun processEvent(event: HomeEvent) {
+        when (event) {
             is HomeEvent.ListStory -> {
                 getStories(event.lifecycleOwner)
             }
         }
     }
-
 
     private fun getStories(lifecycleOwner: LifecycleOwner) {
         _isLoading.value = true
@@ -49,17 +46,18 @@ class HomeViewModel(
                         if (resource.data.listStory.isNullOrEmpty()) {
                             _isEmpty.value = true
                         } else {
-                            _listStory.value = resource.data.listStory.map {
-                                StoryModel(
-                                    name = it?.name ?: "",
-                                    description = it?.description ?: "",
-                                    lon = it?.lon ?: "",
-                                    id = it?.id ?: "",
-                                    lat = it?.lat ?: "",
-                                    photoUrl = it?.photoUrl ?: "",
-                                    createdAt = it?.createdAt ?: ""
-                                )
-                            }
+                            _listStory.value =
+                                resource.data.listStory.map {
+                                    StoryModel(
+                                        name = it?.name ?: "",
+                                        description = it?.description ?: "",
+                                        lon = it?.lon ?: "",
+                                        id = it?.id ?: "",
+                                        lat = it?.lat ?: "",
+                                        photoUrl = it?.photoUrl ?: "",
+                                        createdAt = it?.createdAt ?: "",
+                                    )
+                                }
                         }
                     }
 

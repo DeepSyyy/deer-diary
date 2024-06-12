@@ -20,6 +20,7 @@ import com.example.deerdiary.ViewModelFactory
 import com.example.deerdiary.data.repository.Resource
 import com.example.deerdiary.databinding.ActivityAddStoryBinding
 import com.example.deerdiary.ui.addStoryScreen.CameraActivity.Companion.CAMERAX_RESULT
+import com.example.deerdiary.utils.reduceFileImage
 import com.example.deerdiary.utils.uriToFile
 import kotlinx.coroutines.launch
 
@@ -35,12 +36,12 @@ class AddStoryActivity : AppCompatActivity() {
     private fun allPermissionsGranted() =
         ContextCompat.checkSelfPermission(
             this,
-            REQUIRED_PERMISSION
+            REQUIRED_PERMISSION,
         ) == PackageManager.PERMISSION_GRANTED
 
     private val requestPermissionLauncher =
         registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
+            ActivityResultContracts.RequestPermission(),
         ) { isGranted: Boolean ->
             if (isGranted) {
                 Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
@@ -73,8 +74,8 @@ class AddStoryActivity : AppCompatActivity() {
         }
         binding.btnUpload.setOnClickListener {
             currentImageUri?.let {
-                val imageFile = uriToFile(it, this)
-                val description = binding.etStory.text.toString()
+                val imageFile = uriToFile(it, this).reduceFileImage()
+                val description = binding.edAddDescription.text.toString()
                 lifecycleScope.launch {
                     addStoryViewModel.uploadStory(imageFile, description)
                         .observe(this@AddStoryActivity) { resource ->
@@ -82,27 +83,30 @@ class AddStoryActivity : AppCompatActivity() {
                                 when (resource) {
                                     is Resource.Loading -> {
                                         Log.d("AddStoryActivity", "Loading")
+                                        binding.pbAddStory.visibility = android.view.View.VISIBLE
                                     }
 
                                     is Resource.Success -> {
                                         Log.d("AddStoryActivity", "Success")
+                                        binding.pbAddStory.visibility = android.view.View.GONE
                                         Toast.makeText(
                                             this@AddStoryActivity,
                                             "Story uploaded",
-                                            Toast.LENGTH_LONG
+                                            Toast.LENGTH_LONG,
                                         ).show()
+                                        val result = Intent()
+                                        setResult(RESULT_STORY_CODE, result)
                                         finish()
                                     }
 
                                     is Resource.Error -> {
-                                        Log.d("AddStoryActivity", "Error")
+                                        Log.d("AddStoryActivity", resource.error)
                                         Toast.makeText(
                                             this@AddStoryActivity,
-                                            "Reso",
-                                            Toast.LENGTH_LONG
+                                            resource.error,
+                                            Toast.LENGTH_LONG,
                                         ).show()
                                     }
-
                                 }
                             }
                         }
@@ -119,18 +123,17 @@ class AddStoryActivity : AppCompatActivity() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
-
-    private val launcherGallery = registerForActivityResult(
-        ActivityResultContracts.PickVisualMedia()
-    ) { uri: Uri? ->
-        if (uri != null) {
-            currentImageUri = uri
-            showImage()
-
-        } else {
-            Log.d("Photo Picker", "No media selected")
+    private val launcherGallery =
+        registerForActivityResult(
+            ActivityResultContracts.PickVisualMedia(),
+        ) { uri: Uri? ->
+            if (uri != null) {
+                currentImageUri = uri
+                showImage()
+            } else {
+                Log.d("Photo Picker", "No media selected")
+            }
         }
-    }
 
     private fun showImage() {
         currentImageUri?.let {
@@ -144,14 +147,15 @@ class AddStoryActivity : AppCompatActivity() {
         launcherIntentCameraX.launch(intent)
     }
 
-    private val launcherIntentCameraX = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == CAMERAX_RESULT) {
-            currentImageUri = it.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
-            showImage()
+    private val launcherIntentCameraX =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) {
+            if (it.resultCode == CAMERAX_RESULT) {
+                currentImageUri = it.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
+                showImage()
+            }
         }
-    }
 
     private fun setupAppBar() {
         binding.apply {
@@ -163,5 +167,6 @@ class AddStoryActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUIRED_PERMISSION = android.Manifest.permission.CAMERA
+        const val RESULT_STORY_CODE = 100
     }
 }

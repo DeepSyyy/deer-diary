@@ -1,4 +1,5 @@
 package com.example.deerdiary.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,21 +9,23 @@ import com.example.deerdiary.databinding.CardviewDiaryBinding
 import com.example.deerdiary.ui.homeScreen.model.StoryModel
 import com.example.deerdiary.utils.GlideBindingUtil
 
-
-class ListStoryAdapter: ListAdapter<StoryModel, ListStoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
-
+class ListStoryAdapter : ListAdapter<StoryModel, ListStoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickListener: OnItemClickListener
 
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
     }
 
-    class MyViewHolder(private val binding: CardviewDiaryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun binding(item: StoryModel, onItemClickListener: OnItemClickListener){
+    class MyViewHolder(private val binding: CardviewDiaryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun binding(
+            item: StoryModel,
+            onItemClickListener: OnItemClickListener,
+        ) {
             binding.apply {
-                tvPenulis.text = item.name
+                tvItemName.text = item.name
                 tvDeskripsi.text = item.description
-                GlideBindingUtil.setImageUrl(ivDiary, item.photoUrl)
+                GlideBindingUtil.setImageUrl(ivItemPhoto, item.photoUrl)
                 root.setOnClickListener {
                     onItemClickListener.onItemClick(item)
                 }
@@ -30,29 +33,43 @@ class ListStoryAdapter: ListAdapter<StoryModel, ListStoryAdapter.MyViewHolder>(D
         }
     }
 
-    companion object{
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<StoryModel>(){
-            override fun areItemsTheSame(oldItem: StoryModel, newItem: StoryModel): Boolean {
-                return oldItem.id == newItem.id
-            }
+    companion object {
+        val DIFF_CALLBACK =
+            object : DiffUtil.ItemCallback<StoryModel>() {
+                override fun areItemsTheSame(
+                    oldItem: StoryModel,
+                    newItem: StoryModel,
+                ): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-            override fun areContentsTheSame(oldItem: StoryModel, newItem: StoryModel): Boolean {
-                return oldItem == newItem
+                override fun areContentsTheSame(
+                    oldItem: StoryModel,
+                    newItem: StoryModel,
+                ): Boolean {
+                    return oldItem == newItem
+                }
             }
-        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = CardviewDiaryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): MyViewHolder {
+        val binding =
+            CardviewDiaryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: MyViewHolder,
+        position: Int,
+    ) {
         val item = getItem(position)
         holder.binding(item, onItemClickListener)
     }
 
-    interface OnItemClickListener{
+    interface OnItemClickListener {
         fun onItemClick(item: StoryModel)
     }
 }

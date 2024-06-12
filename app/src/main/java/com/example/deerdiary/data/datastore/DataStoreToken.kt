@@ -13,9 +13,7 @@ import kotlinx.coroutines.flow.map
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 
 class DataStoreToken private constructor(private val dataStore: DataStore<Preferences>) {
-
     companion object {
-
         @Volatile
         private var INSTANCE: DataStoreToken? = null
 

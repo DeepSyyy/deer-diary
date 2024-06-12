@@ -8,13 +8,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/lightYellow"
         android:src="@drawable/ic_add_circle"
-        android:backgroundTint="@color/lightYellow"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/appBar"
@@ -24,9 +24,9 @@
         android:elevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/home_menu"
         app:title="Deer Diary"
         app:titleCentered="true"
-        app:menu="@menu/home_menu"
         app:titleTextColor="@color/lightYellow" />
 
     <ProgressBar
@@ -35,15 +35,15 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:indeterminateTint="@color/lightYellow"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar">
 
@@ -83,9 +83,9 @@
                 android:id="@+id/iv_empty"
                 android:layout_width="306dp"
                 android:layout_height="329dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fl_home"
                 app:srcCompat="@drawable/image_empty" />
@@ -97,8 +97,8 @@
                 android:fontFamily="@font/plus_jakarta_sans_bold"
                 android:text="@string/isi_diary_kosong"
                 android:textColor="@color/lightYellow"
-                android:visibility="gone"
                 android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_empty" />
@@ -107,15 +107,15 @@
                 android:id="@+id/rv_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/cardview_diary"
-                tools:itemCount="4"
-                android:visibility="gone"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fl_home" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fl_home"
+                tools:itemCount="4"
+                tools:listitem="@layout/cardview_diary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,7 +12,7 @@ object Injection {
     fun provideRepository(context: Context): Repository {
         val pref = DataStoreToken.getInstance(context.dataStore)
         val user = pref.getToken(context)
-        val apiService = ApiConfig.getApiService(runBlocking{ user.first() })
+        val apiService = ApiConfig.getApiService(runBlocking { user.first() })
         return Repository.getInstance(apiService, pref)
     }
 }
