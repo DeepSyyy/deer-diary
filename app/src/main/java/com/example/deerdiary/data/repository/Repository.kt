@@ -3,9 +3,15 @@ package com.example.deerdiary.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import com.example.deerdiary.data.StoryPagingSource
 import com.example.deerdiary.data.datasource.LoginResponse
 import com.example.deerdiary.data.datasource.RegisterResponse
 import com.example.deerdiary.data.datasource.StoriesResponse
+import com.example.deerdiary.data.datasource.Story
 import com.example.deerdiary.data.datasource.StoryResponse
 import com.example.deerdiary.data.datastore.DataStoreToken
 import com.example.deerdiary.data.datastore.UserModelDataStore
@@ -64,6 +70,17 @@ class Repository private constructor(
                 emit(Resource.Error(e.message.toString()))
             }
         }
+
+    fun getPagginationStories(): LiveData<PagingData<Story>> {
+        return Pager(
+            config =
+                PagingConfig(
+                    pageSize = 20,
+                    enablePlaceholders = false,
+                ),
+            pagingSourceFactory = { StoryPagingSource(apiService) },
+        ).liveData
+    }
 
     suspend fun getStories(): LiveData<Resource<StoriesResponse>> =
         liveData {

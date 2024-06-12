@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.deerdiary.R
 import com.example.deerdiary.ViewModelFactory
 import com.example.deerdiary.adapter.ListStoryAdapter
+import com.example.deerdiary.data.datasource.Story
 import com.example.deerdiary.databinding.ActivityHomeBinding
 import com.example.deerdiary.ui.addStoryScreen.AddStoryActivity
 import com.example.deerdiary.ui.detailScreen.DetailActivity
-import com.example.deerdiary.ui.homeScreen.model.StoryModel
 import com.example.deerdiary.ui.settingScreen.SettingActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -55,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
         callEvent()
         setUpFabButton()
         setUpAppBar()
+        getData()
 
         // make homeactivity get again after upload
     }
@@ -80,7 +81,7 @@ class HomeActivity : AppCompatActivity() {
 
             listStoryAdapter.setOnItemClickListener(
                 object : ListStoryAdapter.OnItemClickListener {
-                    override fun onItemClick(item: StoryModel) {
+                    override fun onItemClick(item: Story) {
                         val intent = Intent(this@HomeActivity, DetailActivity::class.java)
                         intent.putExtra(DetailActivity.EXTRA_ID, item.id)
                         startActivity(intent)
@@ -112,8 +113,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUpObserver() {
-        homeViewModel.listStory.observe(this) { story ->
-            listStoryAdapter.submitList(story)
+        homeViewModel.stories.observe(this) { story ->
+            listStoryAdapter.submitData(lifecycle, story)
         }
         homeViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -122,6 +123,14 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.isEmpty.observe(this) {
             showEmpty(it)
         }
+    }
+
+    private fun getData() {
+        val adapter = ListStoryAdapter()
+        binding.rvHome.adapter = adapter
+        homeViewModel.stories.observe(this, {
+            adapter.submitData(lifecycle, it)
+        })
     }
 
     private fun showLoading(it: Boolean) {

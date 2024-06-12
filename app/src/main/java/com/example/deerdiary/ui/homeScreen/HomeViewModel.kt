@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.deerdiary.data.datasource.Story
 import com.example.deerdiary.data.repository.Repository
 import com.example.deerdiary.data.repository.Resource
 import com.example.deerdiary.ui.homeScreen.model.StoryModel
@@ -22,6 +25,10 @@ class HomeViewModel(
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _stories = MutableLiveData<List<Story>>()
+    var stories: LiveData<PagingData<Story>> =
+        repository.getPagginationStories().cachedIn(viewModelScope)
 
     fun processEvent(event: HomeEvent) {
         when (event) {
@@ -43,19 +50,19 @@ class HomeViewModel(
 
                     is Resource.Success -> {
                         _isLoading.value = false
-                        if (resource.data.listStory.isNullOrEmpty()) {
+                        if (resource.data.listStory.isEmpty()) {
                             _isEmpty.value = true
                         } else {
                             _listStory.value =
                                 resource.data.listStory.map {
                                     StoryModel(
-                                        name = it?.name ?: "",
-                                        description = it?.description ?: "",
-                                        lon = it?.lon ?: "",
-                                        id = it?.id ?: "",
-                                        lat = it?.lat ?: "",
-                                        photoUrl = it?.photoUrl ?: "",
-                                        createdAt = it?.createdAt ?: "",
+                                        name = it.name ?: "",
+                                        description = it.description ?: "",
+                                        lon = it.lon ?: "",
+                                        id = it.id ?: "",
+                                        lat = it.lat ?: "",
+                                        photoUrl = it.photoUrl ?: "",
+                                        createdAt = it.createdAt ?: "",
                                     )
                                 }
                         }
