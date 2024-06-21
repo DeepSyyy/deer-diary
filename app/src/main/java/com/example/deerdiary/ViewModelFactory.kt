@@ -9,6 +9,7 @@ import com.example.deerdiary.ui.addStoryScreen.AddStoryViewModel
 import com.example.deerdiary.ui.detailScreen.DetailViewModel
 import com.example.deerdiary.ui.homeScreen.HomeViewModel
 import com.example.deerdiary.ui.loginScreen.LoginViewModel
+import com.example.deerdiary.ui.mapUi.MapsViewModel
 import com.example.deerdiary.ui.registerScreen.RegisterViewModel
 import com.example.deerdiary.ui.settingScreen.SettingViewModel
 
@@ -30,6 +31,8 @@ class ViewModelFactory private constructor(
                 return AddStoryViewModel(repository) as T
             } else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
                 return SettingViewModel(repository) as T
+            } else if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
+                return MapsViewModel(repository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

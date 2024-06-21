@@ -29,4 +29,6 @@
     <string name="add_widget" translatable="false">Tambah Widgett</string>
     <string name="app_widget_description" translatable="false">Ini adalah deskripsi widget</string>
     <string name="email">Email</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="location">Location</string>
 </resources>

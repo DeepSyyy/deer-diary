@@ -1,6 +1,10 @@
 package com.example.deerdiary.data.datasource
 
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class StoryResponse(
     @field:SerializedName("error")
@@ -11,7 +15,12 @@ data class StoryResponse(
     val story: Story? = null,
 )
 
+@Entity(tableName = "stories")
+@Parcelize
 data class Story(
+    @PrimaryKey
+    @field:SerializedName("id")
+    val id: String,
     @field:SerializedName("photoUrl")
     val photoUrl: String? = null,
     @field:SerializedName("createdAt")
@@ -21,9 +30,7 @@ data class Story(
     @field:SerializedName("description")
     val description: String? = null,
     @field:SerializedName("lon")
-    val lon: Any? = null,
-    @field:SerializedName("id")
-    val id: String? = null,
+    val lon: Double? = null,
     @field:SerializedName("lat")
-    val lat: Any? = null,
-)
+    val lat: Double? = null,
+) : Parcelable

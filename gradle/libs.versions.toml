@@ -19,6 +19,11 @@ constraintlayout = "2.1.4"
 retrofit = "2.9.0"
 cameraxVersion = "1.2.3"
 pagingRuntimeKtx = "3.1.0"
+roomPaging = "2.4.0-rc01"
+roomCompiler = "2.5.2"
+roomKtx = "2.5.2"
+googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
+playServicesMaps = "18.2.0"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -43,9 +48,14 @@ androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.r
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraxVersion" }
 camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraxVersion" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+googleAndroidLibrariesMapsplatformSecretsGradlePlugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
 

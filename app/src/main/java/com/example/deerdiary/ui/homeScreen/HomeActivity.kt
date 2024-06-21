@@ -19,12 +19,13 @@ import com.example.deerdiary.data.datasource.Story
 import com.example.deerdiary.databinding.ActivityHomeBinding
 import com.example.deerdiary.ui.addStoryScreen.AddStoryActivity
 import com.example.deerdiary.ui.detailScreen.DetailActivity
+import com.example.deerdiary.ui.mapUi.MapsActivity
 import com.example.deerdiary.ui.settingScreen.SettingActivity
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
 
-    private val listStoryAdapter: ListStoryAdapter by lazy { ListStoryAdapter() }
+    private lateinit var listStoryAdapter: ListStoryAdapter
 
     private val factory: ViewModelFactory by lazy { ViewModelFactory.getInstance(this) }
 
@@ -77,17 +78,6 @@ class HomeActivity : AppCompatActivity() {
                         screenWidth / itemWidth,
                     ),
                 )
-            rvHome.adapter = listStoryAdapter
-
-            listStoryAdapter.setOnItemClickListener(
-                object : ListStoryAdapter.OnItemClickListener {
-                    override fun onItemClick(item: Story) {
-                        val intent = Intent(this@HomeActivity, DetailActivity::class.java)
-                        intent.putExtra(DetailActivity.EXTRA_ID, item.id)
-                        startActivity(intent)
-                    }
-                },
-            )
         }
     }
 
@@ -97,6 +87,12 @@ class HomeActivity : AppCompatActivity() {
                 when (menuItemId.itemId) {
                     R.id.setting -> {
                         val intent = Intent(this@HomeActivity, SettingActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
+
+                    R.id.location -> {
+                        val intent = Intent(this@HomeActivity, MapsActivity::class.java)
                         startActivity(intent)
                         true
                     }
@@ -126,11 +122,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        val adapter = ListStoryAdapter()
-        binding.rvHome.adapter = adapter
-        homeViewModel.stories.observe(this, {
-            adapter.submitData(lifecycle, it)
-        })
+        listStoryAdapter = ListStoryAdapter()
+        binding.rvHome.adapter = listStoryAdapter
+        homeViewModel.stories.observe(this) {
+            listStoryAdapter.submitData(lifecycle, it)
+        }
+        listStoryAdapter.setOnItemClickListener(
+            object : ListStoryAdapter.OnItemClickListener {
+                override fun onItemClick(item: Story) {
+                    val intent = Intent(this@HomeActivity, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_ID, item.id)
+                    startActivity(intent)
+                }
+            },
+        )
     }
 
     private fun showLoading(it: Boolean) {

@@ -1,4 +1,4 @@
-package com.example.deerdiary.ui.homeScreen
+package com.example.deerdiary.ui.mapUi
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
@@ -6,16 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.example.deerdiary.data.datasource.Story
 import com.example.deerdiary.data.repository.Repository
 import com.example.deerdiary.data.repository.Resource
 import com.example.deerdiary.ui.homeScreen.model.StoryModel
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
-    var repository: Repository,
+class MapsViewModel(
+    private val repository: Repository,
 ) : ViewModel() {
     private val _listStory = MutableLiveData<List<StoryModel>>()
     val listStory: LiveData<List<StoryModel>> = _listStory
@@ -26,22 +23,19 @@ class HomeViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    var stories: LiveData<PagingData<Story>> =
-        repository.getPagginationStories().cachedIn(viewModelScope)
-
-    fun processEvent(event: HomeEvent) {
+    fun processEvent(event: MapsEvent) {
         when (event) {
-            is HomeEvent.ListStory -> {
-                getStories(event.lifecycleOwner)
+            is MapsEvent.ListStory -> {
+                getStoriesWithLocation(event.lifecycleOwner)
             }
         }
     }
 
-    private fun getStories(lifecycleOwner: LifecycleOwner) {
+    private fun getStoriesWithLocation(lifecycleOwner: LifecycleOwner) {
         _isLoading.value = true
         _isEmpty.value = false
         viewModelScope.launch {
-            repository.getStories().observe(lifecycleOwner) { resource ->
+            repository.getALlStoriesWithLocation(1).observe(lifecycleOwner) { resource ->
                 when (resource) {
                     is Resource.Loading -> {
                         _isLoading.value = true
