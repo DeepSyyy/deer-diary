@@ -80,27 +80,11 @@ class Repository private constructor(
             config =
                 PagingConfig(
                     pageSize = 20,
-                    enablePlaceholders = false,
                 ),
             remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = { storyDatabase.storyDao().getAllStories() },
         ).liveData
     }
-
-    suspend fun getStories(): LiveData<Resource<StoriesResponse>> =
-        liveData {
-            emit(Resource.Loading)
-            try {
-                val response = apiService.getAllStories()
-                if (response.error == false) {
-                    emit(Resource.Success(response))
-                } else {
-                    emit(Resource.Error(response.message.toString()))
-                }
-            } catch (e: Exception) {
-                emit(Resource.Error(e.message.toString()))
-            }
-        }
 
     suspend fun uploadStory(
         imageFile: File,

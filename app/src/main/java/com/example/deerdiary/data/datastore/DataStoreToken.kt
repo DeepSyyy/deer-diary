@@ -14,6 +14,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "to
 
 class DataStoreToken private constructor(private val dataStore: DataStore<Preferences>) {
     companion object {
+        @Suppress("ktlint:standard:property-naming")
         @Volatile
         private var INSTANCE: DataStoreToken? = null
 

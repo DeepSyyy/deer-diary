@@ -20,6 +20,7 @@ import com.example.deerdiary.ViewModelFactory
 import com.example.deerdiary.data.repository.Resource
 import com.example.deerdiary.databinding.ActivityAddStoryBinding
 import com.example.deerdiary.ui.addStoryScreen.CameraActivity.Companion.CAMERAX_RESULT
+import com.example.deerdiary.ui.homeScreen.HomeActivity
 import com.example.deerdiary.utils.reduceFileImage
 import com.example.deerdiary.utils.uriToFile
 import kotlinx.coroutines.launch
@@ -96,7 +97,11 @@ class AddStoryActivity : AppCompatActivity() {
                                         ).show()
                                         val result = Intent()
                                         setResult(RESULT_STORY_CODE, result)
-                                        finish()
+                                        val intent =
+                                            Intent(this@AddStoryActivity, HomeActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
                                     }
 
                                     is Resource.Error -> {
@@ -152,7 +157,8 @@ class AddStoryActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult(),
         ) {
             if (it.resultCode == CAMERAX_RESULT) {
-                currentImageUri = it.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
+                currentImageUri =
+                    it.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
                 showImage()
             }
         }

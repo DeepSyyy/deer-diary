@@ -1,5 +1,6 @@
 package com.example.deerdiary.data.mediator
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -33,6 +34,7 @@ class StoryRemoteMediator(
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                     remoteKeys?.nextKey?.minus(1) ?: INITIAL_PAGE_INDEX
                 }
+
                 LoadType.PREPEND -> {
                     val remoteKeys = getRemoteKeyForFirstItem(state)
                     val prevKey =
@@ -40,6 +42,7 @@ class StoryRemoteMediator(
                             ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                     prevKey
                 }
+
                 LoadType.APPEND -> {
                     val remoteKeys = getRemoteKeyForLastItem(state)
                     val nextKey =
@@ -50,6 +53,7 @@ class StoryRemoteMediator(
             }
         try {
             val responseData = apiService.getAllStories(page, state.config.pageSize)
+            Log.d("StoryRemoteMediator", "load: $responseData")
             val endOfPaginationReached = responseData.listStory.isEmpty()
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {

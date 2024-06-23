@@ -56,6 +56,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(libs.okhttp3.okhttp.tls)
+    implementation(libs.androidx.espresso.idling.resource)
 
     // library use
     implementation(libs.glide)
@@ -75,4 +82,5 @@ dependencies {
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.room.ktx)
     ksp(libs.room.compiler)
+    androidTestImplementation(libs.androidx.espresso.intents)
 }

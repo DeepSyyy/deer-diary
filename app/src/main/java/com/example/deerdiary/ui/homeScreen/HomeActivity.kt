@@ -12,6 +12,7 @@ import androidx.core.hardware.display.DisplayManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.deerdiary.R
 import com.example.deerdiary.ViewModelFactory
 import com.example.deerdiary.adapter.ListStoryAdapter
@@ -34,9 +35,11 @@ class HomeActivity : AppCompatActivity() {
     private val resultLauncher =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
-        ) {
+        ) { it ->
             if (it.resultCode == AddStoryActivity.RESULT_STORY_CODE) {
-                homeViewModel.processEvent(HomeEvent.ListStory(this))
+                homeViewModel.stories.observe(this) {
+                    listStoryAdapter.submitData(lifecycle, it)
+                }
             }
         }
 
@@ -112,6 +115,11 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.stories.observe(this) { story ->
             listStoryAdapter.submitData(lifecycle, story)
         }
+
+        homeViewModel.listStory.observe(this) {
+            listStoryAdapter.submitData(lifecycle, it)
+        }
+
         homeViewModel.isLoading.observe(this) {
             showLoading(it)
         }
@@ -124,9 +132,18 @@ class HomeActivity : AppCompatActivity() {
     private fun getData() {
         listStoryAdapter = ListStoryAdapter()
         binding.rvHome.adapter = listStoryAdapter
-        homeViewModel.stories.observe(this) {
-            listStoryAdapter.submitData(lifecycle, it)
-        }
+        listStoryAdapter.registerAdapterDataObserver(
+            object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeInserted(
+                    positionStart: Int,
+                    itemCount: Int,
+                ) {
+                    if (positionStart == 0) {
+                        binding.rvHome.layoutManager?.scrollToPosition(0)
+                    }
+                }
+            },
+        )
         listStoryAdapter.setOnItemClickListener(
             object : ListStoryAdapter.OnItemClickListener {
                 override fun onItemClick(item: Story) {
