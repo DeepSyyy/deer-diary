@@ -32,6 +32,10 @@ Story App adalah aplikasi Android yang dikembangkan sebagai bagian dari submisi 
         ```bash
         git checkout submission-2
         ```
+    - Untuk branch utama (main):
+        ```bash
+        git checkout main
+        ```
 3. Buka proyek ini di Android Studio.
 4. Biarkan Gradle melakukan sinkronisasi proyek.
 5. Jalankan aplikasi pada emulator atau perangkat Android Anda.
@@ -44,3 +48,23 @@ Story App adalah aplikasi Android yang dikembangkan sebagai bagian dari submisi 
 4. Untuk mengunggah story, klik tombol tambah (+) dan pilih gambar dari kamera atau galeri. Tambahkan deskripsi dan unggah story.
 5. Aplikasi akan menampilkan story yang baru saja Anda unggah di halaman utama.
 6. Pada branch submisi 2, Anda dapat menggunakan fitur paging untuk melihat story lebih banyak secara bertahap dan melihat lokasi story di peta.
+
+## Struktur Proyek
+
+Berikut adalah struktur proyek secara umum:
+
+StoryApp/
+├── app/
+│ ├── src/
+│ │ ├── main/
+│ │ │ ├── java/com/example/storyapp/
+│ │ │ ├── res/
+│ │ │ ├── AndroidManifest.xml
+│ ├── build.gradle
+├── build.gradle
+├── settings.gradle
+
+## Bintang Submisi
+
+- **Submisi 1**: ⭐⭐⭐⭐⭐ (5 bintang)
+- **Submisi 2**: ⭐⭐⭐⭐ (4 bintang)
