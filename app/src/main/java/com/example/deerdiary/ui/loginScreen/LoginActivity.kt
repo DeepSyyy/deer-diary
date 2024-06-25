@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityLoginBinding
 
     private val factory by lazy { ViewModelFactory.getInstance(this) }
@@ -38,13 +37,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun binding() {
         binding.apply {
-            btnRegister.setOnClickListener() {
+            btnRegister.setOnClickListener {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
             }
             btnLogin.setOnClickListener {
-                val email = emailTextFieldEditText.text.toString()
-                val password = passwordTextFieldEditText.text.toString()
+                val email = edLoginEmail.text.toString()
+                val password = edLoginPassword.text.toString()
                 try {
                     lifecycleScope.launch {
                         loginViewModel.login(email, password)
@@ -65,20 +64,26 @@ class LoginActivity : AppCompatActivity() {
                                                         resource.data.loginResult?.userId.toString(),
                                                         resource.data.loginResult?.name.toString(),
                                                         resource.data.loginResult?.token?.isNotEmpty()
-                                                            ?: false
-                                                    )
+                                                            ?: false,
+                                                    ),
                                                 )
                                                 Log.d(
                                                     "LoginActivity",
                                                     "token: ${
                                                         dataStoreToken.getInstance(dataStore)
                                                             .getSession().first().token
-                                                    }"
+                                                    }",
                                                 )
 
-                                                val intent = Intent(
-                                                    this@LoginActivity,
-                                                    HomeActivity::class.java
+                                                val intent =
+                                                    Intent(
+                                                        this@LoginActivity,
+                                                        HomeActivity::class.java,
+                                                    )
+                                                intent.addFlags(
+                                                    Intent.FLAG_ACTIVITY_CLEAR_TOP.or(
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK,
+                                                    ).or(Intent.FLAG_ACTIVITY_NEW_TASK),
                                                 )
                                                 startActivity(intent)
                                             }
@@ -97,8 +102,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
     private fun save(userModel: UserModelDataStore) {
@@ -109,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
                     userModel.userId,
                     userModel.nama,
                     userModel.isLogin,
-                )
+                ),
             )
         }
     }

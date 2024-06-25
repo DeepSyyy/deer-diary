@@ -5,10 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_screen"
     android:paddingLeft="16dp"
     android:paddingTop="100dp"
     android:paddingRight="16dp"
-    android:background="@drawable/background_screen"
     tools:context=".ui.registerScreen.RegisterActivity">
 
     <ImageView
@@ -26,8 +26,8 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/plus_jakarta_sans_bold"
         android:text="@string/selamat_datang"
-        android:textSize="24sp"
         android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@id/iv_deer"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,9 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:textColor="@color/white"
         android:fontFamily="@font/plus_jakarta_sans_regular"
         android:text="@string/deskripsi_daftar"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_deer"
         app:layout_constraintStart_toEndOf="@id/iv_deer"
@@ -65,7 +65,7 @@
         app:startIconDrawable="@drawable/ic_user_square">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_name"
+            android:id="@+id/ed_register_name"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="@string/nama_hint"
@@ -93,10 +93,11 @@
         app:startIconDrawable="@drawable/ic_mail">
 
         <com.example.deerdiary.ui.global.EmailTextField
-            android:id="@+id/et_email"
+            android:id="@+id/ed_register_email"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:hint="Email" />
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -121,7 +122,7 @@
         app:startIconDrawable="@drawable/ic_key">
 
         <com.example.deerdiary.ui.global.PasswordTextField
-            android:id="@+id/et_password"
+            android:id="@+id/ed_register_password"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="@string/password_text"
@@ -130,42 +131,42 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_register"
-        app:layout_constraintTop_toBottomOf="@id/passwordTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_primary_background"
-        android:layout_width="match_parent"
         android:elevation="0dp"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
         android:text="@string/daftar"
         android:textAllCaps="false"
         android:textSize="16sp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toBottomOf="@id/passwordTextField" />
 
     <TextView
         android:id="@+id/tv_sudah_punya_akun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/sudah_punya_akun"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="@string/sudah_punya_akun"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_register" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
-        app:layout_constraintTop_toBottomOf="@id/tv_sudah_punya_akun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_secondary_background"
-        android:layout_width="match_parent"
         android:elevation="0dp"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
         android:text="@string/masuk"
         android:textAllCaps="false"
-        android:textSize="16sp"
         android:textColor="@color/lightYellow"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:layout_height="wrap_content" />
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_sudah_punya_akun" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import com.example.deerdiary.data.datasource.StoriesResponse
 import com.example.deerdiary.data.datasource.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -17,32 +16,31 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-
 interface ApiService {
-    //Melakukan request GET ke endpoint /stories untuk mendapatkan semua cerita
+    // Melakukan request GET ke endpoint /stories untuk mendapatkan semua cerita
     @GET("stories")
     suspend fun getAllStories(
-        @Query("page") page: Int? = null,
-        @Query("size") size: Int? = null,
-        @Query("location") location: String? = null,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20,
+        @Query("location") location: Int? = 0,
     ): StoriesResponse
 
-    //Melakukan request GET ke endpoint /stories/{id} untuk mendapatkan cerita berdasarkan id
+    // Melakukan request GET ke endpoint /stories/{id} untuk mendapatkan cerita berdasarkan id
     @GET("stories/{id}")
     suspend fun getStory(
         @Path("id") id: String,
     ): StoryResponse
 
-    //Melakukan request POST ke endpoint /login untuk login
+    // Melakukan request POST ke endpoint /login untuk login
 
     @FormUrlEncoded
     @POST("login")
     suspend fun login(
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
     ): LoginResponse
 
-    //Melakukan request POST ke endpoint /register untuk register
+    // Melakukan request POST ke endpoint /register untuk register
     @FormUrlEncoded
     @POST("register")
     suspend fun register(
@@ -51,21 +49,11 @@ interface ApiService {
         @Field("password") password: String,
     ): RegisterResponse
 
-    //Melakukan request POST ke endpoint /stories untuk membuat cerita baru
+    // Melakukan request POST ke endpoint /stories untuk membuat cerita baru
     @Multipart
     @POST("stories")
-    fun uploadStory(
-        @Part("photoUrl") photo: MultipartBody.Part,
+    suspend fun uploadStory(
+        @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
     ): PostStoryResponse
-
-    //Melakukan request POST ke endpoint /stories/guest
-    @Multipart
-    @POST("stories/guest")
-    fun uploadStoryGuest(
-        @Part("photoUrl") photo: MultipartBody.Part,
-        @Part("description") description: String,
-        @Part("lon") lon: Float?,
-        @Part("lat") lat: Float?,
-    ): Call<PostStoryResponse>
 }

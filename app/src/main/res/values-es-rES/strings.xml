@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Deer Diary</string>
+    <string name="password_text">Contraseña</string>
+    <string name="selamat_datang">¡Bienvenido!</string>
+    <string name="deskripsi_masuk">¡Por favor inicia sesión para comenzar!</string>
+    <string name="masuk">Iniciar sesión</string>
+    <string name="daftar">Registrarse</string>
+    <string name="belum_punya_akun">¿No tienes una cuenta?</string>
+    <string name="sudah_punya_akun">¿Ya tienes una cuenta?</string>
+    <string name="nama_hint">Nombre</string>
+    <string name="deskripsi_daftar">¡Por favor crea una cuenta primero!</string>
+    <string name="caption_onboarding">Escribe tus momentos preciados y tus sueños más hermosos aquí. Deja que el ciervo lleve tu inspiración y que el amarillo adorne cada palabra.</string>
+    <string name="deskripsi_konten_gambar_detail">Esto es una imagen</string>
+    <string name="detail_diary">Detalle del Diario</string>
+    <string name="lorem_lima_paragraf">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse in est. Lorem mollis aliquam ut porttitor leo a diam. Urna molestie at elementum eu facilisis. Semper eget duis at tellus at. Lectus mauris ultrices eros in cursus. Eleifend donec pretium vulputate sapien. Amet cursus sit amet dictum sit amet. Nec dui nunc mattis enim ut. Natoque penatibus et magnis dis. Justo eget magna fermentum iaculis eu non diam phasellus vestibulum. Posuere sollicitudin aliquam ultrices sagittis orci a. Ullamcorper sit amet risus nullam. Vitae ultricies leo integer malesuada nunc. Eget est lorem ipsum dolor sit amet consectetur adipiscing. Elit pellentesque habitant morbi tristique senectus et. Integer vitae justo eget magna fermentum iaculis. Tristique sollicitudin nibh sit amet commodo nulla facilisi nullam. Etiam sit amet nisl purus in mollis nunc sed id. Habitant morbi tristique senectus et. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus. Nunc sed velit dignissim sodales ut eu sem. Est ante in nibh mauris cursus mattis molestie. Enim sit amet venenatis urna cursus. Habitasse platea dictumst quisque sagittis. Amet consectetur adipiscing elit pellentesque habitant morbi tristique. Vestibulum rhoncus est pellentesque elit. Vitae sapien pellentesque habitant morbi tristique. Eros donec ac odio tempor orci dapibus ultrices in. Aenean et tortor at risus viverra adipiscing at in tellus. Feugiat sed lectus vestibulum mattis. Odio facilisis mauris sit amet massa vitae tortor condimentum lacinia. Elementum pulvinar etiam non quam lacus suspendisse. Fames ac turpis egestas sed tempus urna et pharetra pharetra. Lobortis mattis aliquam faucibus purus in. Habitant morbi tristique senectus et netus et. Posuere ac ut consequat semper viverra. Nullam eget felis eget nunc lobortis mattis. Cursus metus aliquam eleifend mi in nulla posuere. Libero justo laoreet sit amet cursus sit amet dictum sit. Quam id leo in vitae turpis massa sed. Sagittis vitae et leo duis ut diam quam nulla. Quam quisque id diam vel quam elementum pulvinar etiam non. Quis commodo odio aenean sed adipiscing diam donec. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit eget gravida cum sociis natoque penatibus. Diam phasellus vestibulum lorem sed risus ultricies tristique nulla. Sapien eget mi proin sed libero enim. Et malesuada fames ac turpis egestas maecenas pharetra convallis posuere. Pharetra diam sit amet nisl suscipit adipiscing. Integer enim neque volutpat ac. Habitant morbi tristique senectus et netus et. Eget dolor morbi non arcu risus quis varius. Felis donec et odio pellentesque diam volutpat commodo sed. Pellentesque elit ullamcorper dignissim cras. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Nunc scelerisque viverra mauris in aliquam sem fringilla ut. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Cum sociis natoque penatibus et magnis. Nunc id cursus metus aliquam.</string>
+    <string name="penulis">J.K Rowling</string>
+    <string name="teks_penyemangat">Escribe tu historia y guarda recuerdos a través de imágenes</string>
+    <string name="kamera">Cámara</string>
+    <string name="galeri">Galería</string>
+    <string name="isi_diary_kosong">El diario está vacíog</string>
+    <string name="terjadi_kesalahan_pada_aplikasi">Ocurrió un error en la aplicación</string>
+    <string name="settings">Configuraciones</string>
+    <string name="upload">Subir</string>
+    <string name="masukkan_cerita_anda">Introduce tu historia</string>
+    <string name="keluar">Salir</string>
+    <string name="penulis_s">Autor: %s</string>
+    <string name="ganti_bahasa">Cambiar Idioma</string>
+    <string name="email">Email</string>
+</resources>

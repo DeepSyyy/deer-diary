@@ -16,11 +16,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class OnboardingActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityOnboardingBinding
 
     private lateinit var preference: DataStoreToken
     private val applicationScope = CoroutineScope(Dispatchers.IO)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
@@ -28,12 +28,11 @@ class OnboardingActivity : AppCompatActivity() {
 
         preference = DataStoreToken.getInstance(dataStore)
 
-
         playAnimation()
         binding()
     }
 
-    private fun playAnimation(){
+    private fun playAnimation() {
         ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 2000
             repeatCount = ValueAnimator.INFINITE
@@ -45,7 +44,7 @@ class OnboardingActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun binding(){
+    private fun binding() {
         binding.apply {
             btnLogin.setOnClickListener {
                 val intent = Intent(this@OnboardingActivity, LoginActivity::class.java)
@@ -63,15 +62,12 @@ class OnboardingActivity : AppCompatActivity() {
         applicationScope.launch {
             val user = preference.getSession().first().isLogin
             if (user) {
-                val intent = Intent(this@OnboardingActivity, HomeActivity::class.java).addFlags(
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                )
+                val intent =
+                    Intent(this@OnboardingActivity, HomeActivity::class.java).addFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK,
+                    )
                 startActivity(intent)
                 finish()
-            } else {
-                val intent = Intent(this@OnboardingActivity, LoginActivity::class.java).addFlags(
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                )
             }
         }
     }

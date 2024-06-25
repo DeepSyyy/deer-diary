@@ -9,12 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.deerdiary.R
 import com.example.deerdiary.ViewModelFactory
 import com.example.deerdiary.databinding.ActivityDetailBinding
 import com.example.deerdiary.utils.GlideBindingUtil
 
 class DetailActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityDetailBinding
 
     private val factory: ViewModelFactory by lazy { ViewModelFactory.getInstance(this) }
@@ -38,9 +38,14 @@ class DetailActivity : AppCompatActivity() {
         callEvent()
     }
 
-    private fun callEvent(){
+    private fun callEvent() {
         Log.d("GetStories", "callEvent: ")
-        detailViewModel.processEvent(DetailEvent.getStory(intent.getStringExtra(EXTRA_ID).toString(), this))
+        detailViewModel.processEvent(
+            DetailEvent.GetStory(
+                intent.getStringExtra(EXTRA_ID).toString(),
+                this,
+            ),
+        )
     }
 
     private fun setUpObserver() {
@@ -58,16 +63,19 @@ class DetailActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setDetailStory() {
+        val name = detailViewModel.story.value?.name ?: "Unknown"
+        val penulisTemplate = getString(R.string.penulis_s)
+        val formattedText = String.format(penulisTemplate, name)
         binding.apply {
-            GlideBindingUtil.setImageUrl(ivDetail, detailViewModel.story.value?.photoUrl.toString())
-            tvPenulisDetail.text = "Penulis: ${detailViewModel.story.value?.name}"
-            tvDeskripsiDetail.text = detailViewModel.story.value?.description
+            GlideBindingUtil.setImageUrl(ivDetailPhoto, detailViewModel.story.value?.photoUrl.toString())
+            tvDetailName.text = formattedText
+            tvDetailDescription.text = detailViewModel.story.value?.description
         }
     }
 
     private fun setupAppBar() {
         binding.apply {
-            toolbar.toolbar.setNavigationOnClickListener {
+            toolbarDetail.toolbar.setNavigationOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }
         }
@@ -77,18 +85,18 @@ class DetailActivity : AppCompatActivity() {
         binding.apply {
             if (it) {
                 pbDetail.visibility = View.VISIBLE
-                ivDetail.visibility = View.GONE
-                tvPenulisDetail.visibility = View.GONE
-                tvDeskripsiDetail.visibility = View.GONE
+                ivDetailPhoto.visibility = View.GONE
+                tvDetailName.visibility = View.GONE
+                tvDetailDescription.visibility = View.GONE
                 tvTitleDetail.visibility = View.GONE
                 tvTitleDeskripsi.visibility = View.GONE
                 tvEmpty.visibility = View.GONE
                 ivEmptyDetail.visibility = View.GONE
             } else {
                 pbDetail.visibility = View.GONE
-                ivDetail.visibility = View.VISIBLE
-                tvPenulisDetail.visibility = View.VISIBLE
-                tvDeskripsiDetail.visibility = View.VISIBLE
+                ivDetailPhoto.visibility = View.VISIBLE
+                tvDetailName.visibility = View.VISIBLE
+                tvDetailDescription.visibility = View.VISIBLE
                 tvTitleDetail.visibility = View.VISIBLE
                 tvTitleDeskripsi.visibility = View.VISIBLE
                 tvEmpty.visibility = View.GONE
@@ -102,9 +110,9 @@ class DetailActivity : AppCompatActivity() {
             if (it) {
                 binding.apply {
                     pbDetail.visibility = View.GONE
-                    ivDetail.visibility = View.GONE
-                    tvPenulisDetail.visibility = View.GONE
-                    tvDeskripsiDetail.visibility = View.GONE
+                    ivDetailPhoto.visibility = View.GONE
+                    tvDetailName.visibility = View.GONE
+                    tvDetailDescription.visibility = View.GONE
                     tvTitleDetail.visibility = View.GONE
                     tvTitleDeskripsi.visibility = View.GONE
                     tvEmpty.visibility = View.VISIBLE
@@ -113,7 +121,6 @@ class DetailActivity : AppCompatActivity() {
             }
         }
     }
-
 
     companion object {
         const val EXTRA_ID = "id"

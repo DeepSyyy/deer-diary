@@ -9,37 +9,35 @@ import com.example.deerdiary.ui.addStoryScreen.AddStoryViewModel
 import com.example.deerdiary.ui.detailScreen.DetailViewModel
 import com.example.deerdiary.ui.homeScreen.HomeViewModel
 import com.example.deerdiary.ui.loginScreen.LoginViewModel
+import com.example.deerdiary.ui.mapUi.MapsViewModel
 import com.example.deerdiary.ui.registerScreen.RegisterViewModel
+import com.example.deerdiary.ui.settingScreen.SettingViewModel
 
 class ViewModelFactory private constructor(
     private val repository: Repository,
 ) :
     ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-            return RegisterViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(repository) as T
-        }else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
-            return AddStoryViewModel(repository) as T
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+                return LoginViewModel(repository) as T
+            } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
+                return RegisterViewModel(repository) as T
+            } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+                return HomeViewModel(repository) as T
+            } else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+                return DetailViewModel(repository) as T
+            } else if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
+                return AddStoryViewModel(repository) as T
+            } else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
+                return SettingViewModel(repository) as T
+            } else if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
+                return MapsViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
-        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
-    }
 
-    companion object {
-        @Volatile
-        private var INSTANCE: ViewModelFactory? = null
-
-        fun getInstance(context: Context) = ViewModelFactory(Injection.provideRepository(context))
-
-        fun clearInstance() {
-            INSTANCE = null
+        companion object {
+            fun getInstance(context: Context) = ViewModelFactory(Injection.provideRepository(context))
         }
     }
-}

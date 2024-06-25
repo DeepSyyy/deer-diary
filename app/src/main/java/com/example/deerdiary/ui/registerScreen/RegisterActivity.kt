@@ -13,12 +13,12 @@ import com.example.deerdiary.ui.loginScreen.LoginActivity
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityRegisterBinding
 
     private val factory by lazy { ViewModelFactory.getInstance(this) }
 
     private val registerViewModel: RegisterViewModel by viewModels { factory }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,13 +31,13 @@ class RegisterActivity : AppCompatActivity() {
     private fun binding() {
         binding.apply {
             btnLogin.setOnClickListener {
-                var intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                 startActivity(intent)
             }
             btnRegister.setOnClickListener {
-                val name = etName.text.toString()
-                val email = etEmail.text.toString()
-                val password = etPassword.text.toString()
+                val name = edRegisterName.text.toString()
+                val email = edRegisterEmail.text.toString()
+                val password = edRegisterPassword.text.toString()
                 try {
                     lifecycleScope.launch {
                         registerViewModel.register(name, email, password)
@@ -49,7 +49,16 @@ class RegisterActivity : AppCompatActivity() {
 
                                         is Resource.Success -> {
                                             showToast("Register berhasil! Silahkan login")
-
+                                            val intent =
+                                                Intent(
+                                                    this@RegisterActivity,
+                                                    LoginActivity::class.java,
+                                                )
+                                            intent.addFlags(
+                                                Intent.FLAG_ACTIVITY_CLEAR_TOP.or(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                    .or(Intent.FLAG_ACTIVITY_NEW_TASK),
+                                            )
+                                            startActivity(intent)
                                         }
 
                                         is Resource.Error -> {

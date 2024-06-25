@@ -37,17 +37,17 @@ class CameraActivity : AppCompatActivity() {
         }
         startCamera()
         setUpButton()
-
     }
 
-    private fun setUpButton(){
+    private fun setUpButton() {
         binding.apply {
             switchCamera.setOnClickListener {
-                cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
-                    CameraSelector.DEFAULT_FRONT_CAMERA
-                } else {
-                    CameraSelector.DEFAULT_BACK_CAMERA
-                }
+                cameraSelector =
+                    if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+                        CameraSelector.DEFAULT_FRONT_CAMERA
+                    } else {
+                        CameraSelector.DEFAULT_BACK_CAMERA
+                    }
                 startCamera()
             }
             captureImage.setOnClickListener {
@@ -61,11 +61,12 @@ class CameraActivity : AppCompatActivity() {
 
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-                }
+            val preview =
+                Preview.Builder()
+                    .build()
+                    .also {
+                        it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                    }
             imageCapture = ImageCapture.Builder().build()
 
             try {
@@ -74,13 +75,13 @@ class CameraActivity : AppCompatActivity() {
                     this,
                     cameraSelector,
                     preview,
-                    imageCapture
+                    imageCapture,
                 )
             } catch (exc: Exception) {
                 Toast.makeText(
                     this@CameraActivity,
                     "Gagal memunculkan kamera.",
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_SHORT,
                 ).show()
                 Log.e(TAG, "startCamera: ${exc.message}")
             }
@@ -101,15 +102,16 @@ class CameraActivity : AppCompatActivity() {
                     setResult(CAMERAX_RESULT, intent)
                     finish()
                 }
+
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
                         this@CameraActivity,
                         "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
                     ).show()
                     Log.e(TAG, "onError: ${exc.message}")
                 }
-            }
+            },
         )
     }
 

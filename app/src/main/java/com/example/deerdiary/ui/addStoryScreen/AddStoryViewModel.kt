@@ -8,7 +8,7 @@ import com.example.deerdiary.data.repository.Resource
 import java.io.File
 
 class AddStoryViewModel(
-    var repository: Repository
+    var repository: Repository,
 ) : ViewModel() {
     suspend fun uploadStory(
         photo: File,
@@ -19,6 +19,4 @@ class AddStoryViewModel(
             description,
         )
     }
-
-
 }

@@ -17,10 +17,10 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/button_primary_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/button_primary_background"
         app:srcCompat="@drawable/ic_camera" />
 
     <ImageView
