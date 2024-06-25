@@ -5,5 +5,5 @@ sealed class Resource<out R> private constructor() {
 
     data class Error(val error: String) : Resource<Nothing>()
 
-    object Loading : Resource<Nothing>()
+    data object Loading : Resource<Nothing>()
 }

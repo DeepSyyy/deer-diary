@@ -3,12 +3,20 @@ package com.example.deerdiary.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import com.example.deerdiary.data.dao.StoryDatabase
 import com.example.deerdiary.data.datasource.LoginResponse
 import com.example.deerdiary.data.datasource.RegisterResponse
 import com.example.deerdiary.data.datasource.StoriesResponse
+import com.example.deerdiary.data.datasource.Story
 import com.example.deerdiary.data.datasource.StoryResponse
 import com.example.deerdiary.data.datastore.DataStoreToken
 import com.example.deerdiary.data.datastore.UserModelDataStore
+import com.example.deerdiary.data.mediator.StoryRemoteMediator
 import com.example.deerdiary.data.services.ApiService
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -19,6 +27,7 @@ import java.io.File
 class Repository private constructor(
     private val apiService: ApiService,
     private val dataStoreToken: DataStoreToken,
+    private val storyDatabase: StoryDatabase,
 ) {
     suspend fun login(
         email: String,
@@ -65,20 +74,17 @@ class Repository private constructor(
             }
         }
 
-    suspend fun getStories(): LiveData<Resource<StoriesResponse>> =
-        liveData {
-            emit(Resource.Loading)
-            try {
-                val response = apiService.getAllStories()
-                if (response.error == false) {
-                    emit(Resource.Success(response))
-                } else {
-                    emit(Resource.Error(response.message.toString()))
-                }
-            } catch (e: Exception) {
-                emit(Resource.Error(e.message.toString()))
-            }
-        }
+    fun getPagginationStories(): LiveData<PagingData<Story>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config =
+                PagingConfig(
+                    pageSize = 20,
+                ),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
+            pagingSourceFactory = { storyDatabase.storyDao().getAllStories() },
+        ).liveData
+    }
 
     suspend fun uploadStory(
         imageFile: File,
@@ -121,10 +127,26 @@ class Repository private constructor(
             }
         }
 
+    suspend fun getALlStoriesWithLocation(location: Int): LiveData<Resource<StoriesResponse>> =
+        liveData {
+            emit(Resource.Loading)
+            try {
+                val response = apiService.getAllStories(location = location)
+                if (response.error == false) {
+                    emit(Resource.Success(response))
+                } else {
+                    emit(Resource.Error(response.message.toString()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.message.toString()))
+            }
+        }
+
     companion object {
         fun getInstance(
             apiService: ApiService,
             dataStoreToken: DataStoreToken,
-        ) = Repository(apiService, dataStoreToken)
+            storyDatabase: StoryDatabase,
+        ) = Repository(apiService, dataStoreToken, storyDatabase)
     }
 }

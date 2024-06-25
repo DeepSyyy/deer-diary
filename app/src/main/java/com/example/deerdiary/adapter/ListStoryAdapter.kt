@@ -2,14 +2,14 @@ package com.example.deerdiary.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.deerdiary.data.datasource.Story
 import com.example.deerdiary.databinding.CardviewDiaryBinding
-import com.example.deerdiary.ui.homeScreen.model.StoryModel
 import com.example.deerdiary.utils.GlideBindingUtil
 
-class ListStoryAdapter : ListAdapter<StoryModel, ListStoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ListStoryAdapter : PagingDataAdapter<Story, ListStoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickListener: OnItemClickListener
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -19,13 +19,13 @@ class ListStoryAdapter : ListAdapter<StoryModel, ListStoryAdapter.MyViewHolder>(
     class MyViewHolder(private val binding: CardviewDiaryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun binding(
-            item: StoryModel,
+            item: Story,
             onItemClickListener: OnItemClickListener,
         ) {
             binding.apply {
                 tvItemName.text = item.name
                 tvDeskripsi.text = item.description
-                GlideBindingUtil.setImageUrl(ivItemPhoto, item.photoUrl)
+                GlideBindingUtil.setImageUrl(ivItemPhoto, item.photoUrl ?: "")
                 root.setOnClickListener {
                     onItemClickListener.onItemClick(item)
                 }
@@ -35,17 +35,17 @@ class ListStoryAdapter : ListAdapter<StoryModel, ListStoryAdapter.MyViewHolder>(
 
     companion object {
         val DIFF_CALLBACK =
-            object : DiffUtil.ItemCallback<StoryModel>() {
+            object : DiffUtil.ItemCallback<Story>() {
                 override fun areItemsTheSame(
-                    oldItem: StoryModel,
-                    newItem: StoryModel,
+                    oldItem: Story,
+                    newItem: Story,
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: StoryModel,
-                    newItem: StoryModel,
+                    oldItem: Story,
+                    newItem: Story,
                 ): Boolean {
                     return oldItem == newItem
                 }
@@ -66,10 +66,12 @@ class ListStoryAdapter : ListAdapter<StoryModel, ListStoryAdapter.MyViewHolder>(
         position: Int,
     ) {
         val item = getItem(position)
-        holder.binding(item, onItemClickListener)
+        if (item != null) {
+            holder.binding(item, onItemClickListener)
+        }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: StoryModel)
+        fun onItemClick(item: Story)
     }
 }

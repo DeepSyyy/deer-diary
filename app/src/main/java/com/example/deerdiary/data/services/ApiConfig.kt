@@ -8,6 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object {
+        @Suppress("ktlint:standard:property-naming")
+        var base_url = "https://story-api.dicoding.dev/v1/"
+
         fun getApiService(token: String): ApiService {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -26,7 +29,7 @@ class ApiConfig {
                     .build()
             val retrofit =
                 Retrofit.Builder()
-                    .baseUrl("https://story-api.dicoding.dev/v1/")
+                    .baseUrl(base_url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build()

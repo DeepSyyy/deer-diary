@@ -20,9 +20,9 @@ interface ApiService {
     // Melakukan request GET ke endpoint /stories untuk mendapatkan semua cerita
     @GET("stories")
     suspend fun getAllStories(
-        @Query("page") page: Int? = null,
-        @Query("size") size: Int? = null,
-        @Query("location") location: String? = null,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20,
+        @Query("location") location: Int? = 0,
     ): StoriesResponse
 
     // Melakukan request GET ke endpoint /stories/{id} untuk mendapatkan cerita berdasarkan id

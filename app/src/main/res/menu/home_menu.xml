@@ -9,4 +9,12 @@
         android:title="@string/settings"
         app:showAsAction="ifRoom"
         tools:targetApi="o" />
+
+    <item
+        android:id="@+id/location"
+        android:icon="@drawable/ic_location"
+        android:iconTint="@color/lightYellow"
+        android:title="@string/location"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o"/>
 </menu>
