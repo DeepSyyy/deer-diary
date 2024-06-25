@@ -49,21 +49,6 @@ Story App adalah aplikasi Android yang dikembangkan sebagai bagian dari submisi 
 5. Aplikasi akan menampilkan story yang baru saja Anda unggah di halaman utama.
 6. Pada branch submisi 2, Anda dapat menggunakan fitur paging untuk melihat story lebih banyak secara bertahap dan melihat lokasi story di peta.
 
-## Struktur Proyek
-
-Berikut adalah struktur proyek secara umum:
-
-StoryApp/
-├── app/
-│ ├── src/
-│ │ ├── main/
-│ │ │ ├── java/com/example/storyapp/
-│ │ │ ├── res/
-│ │ │ ├── AndroidManifest.xml
-│ ├── build.gradle
-├── build.gradle
-├── settings.gradle
-
 ## Bintang Submisi
 
 - **Submisi 1**: ⭐⭐⭐⭐⭐ (5 bintang)
